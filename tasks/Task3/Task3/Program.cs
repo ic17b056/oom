@@ -23,21 +23,21 @@ namespace Task3
             song2.AddArtist("Artist6");
             composition.AddArtist("Artist7");
 
-            Random random = new Random();
-            ITrack iTrack = song1;
-            switch (random.Next(1, 4))
-            {
-                case 1: iTrack = song1;
-                    break;
-                case 2: iTrack = song2;
-                    break;
-                case 3: iTrack = composition;
-                    break;
-            }
+            ITrack[] tracks = new ITrack[3];
 
-            foreach(Artist artist in iTrack.GetArtists())
+            tracks[0] = song1;
+            tracks[1] = song2;
+            tracks[2] = composition;
+
+            foreach (ITrack itrack in tracks)
             {
-                Console.WriteLine(artist.Name);
+                if (itrack != null && itrack.GetArtists() != null)
+                {
+                    foreach (Artist artist in itrack.GetArtists())
+                    {
+                        Console.WriteLine(artist.Name);
+                    }
+                }
             }
 
             Console.ReadLine();
