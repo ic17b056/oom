@@ -12,22 +12,22 @@ namespace Task4.Model
         private double duration;
         private List<Artist> artists = new List<Artist>();
 
-        public Song(string title, double duration, string artist)
+        public Song(string title, double duration, List<Artist> artists)
         {
             Title = title;
             Duration = duration;
-            AddArtist(artist);
-        }
-
-        public void AddArtist(string artist)
-        {
-            Artist newArtist = new Artist(artist);
-            this.artists.Add(newArtist);
+            Artists = artists;
         }
 
         public List<Artist> GetArtists()
         {
             return this.artists;
+        }
+
+        public List<Artist> Artists
+        {
+            get { return this.artists; }
+            set { this.artists = value; }
         }
 
         public double Duration

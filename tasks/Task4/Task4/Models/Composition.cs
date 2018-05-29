@@ -13,23 +13,23 @@ namespace Task4.Model
         private Artist composer;
         private List<Artist> artists = new List<Artist>();
 
-        public Composition(string title, double duration, Artist composer, string artist)
+        public Composition(string title, double duration, Artist composer, List<Artist> artists)
         {
             Title = title;
             Duration = duration;
             Composer = composer;
-            AddArtist(artist);
-        }
-
-        public void AddArtist(string artist)
-        {
-            Artist newArtist = new Artist(artist);
-            this.artists.Add(newArtist);
+            Artists = artists;
         }
 
         public List<Artist> GetArtists()
         {
             return this.artists;
+        }
+
+        public List<Artist> Artists
+        {
+           get { return this.artists; }
+           set { this.artists = value; }
         }
 
         public double Duration

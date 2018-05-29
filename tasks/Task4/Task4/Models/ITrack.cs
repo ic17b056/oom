@@ -10,8 +10,8 @@ namespace Task4.Model
     {
      
         string Title { get; }
-
-        void AddArtist(String Artist);
+        double Duration { get; }
+        List<Artist> Artists { get; }
 
         List<Artist> GetArtists();
     }

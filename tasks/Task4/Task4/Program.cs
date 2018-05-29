@@ -13,22 +13,25 @@ namespace Task4
         static void Main(string[] args)
         {
             Artist artist = new Artist("CompositionArtist");
+            List<Artist> list = new List<Artist>();
+            list.Add(new Artist("Artist1"));
+
             var tracks = new ITrack[]
             {
-                new Song("Song1", 2, "Artist1"),
-                new Song("Song2", 2, "Artist2"),
-                new Song("Song3", 2, "Artist3"),
-                new Song("Song4", 3, "Artist4"),
-                new Song("Song5", 4, "Artist5"),
-                new Composition("Composition1", 2, artist, "newArtist1"),
-                new Composition("Composition2", 3, artist, "newArtist2"),
-                 new Composition("Composition3", 4, artist, "newArtist3"),
+                new Song("Song1", 2, list),
+                new Song("Song2", 2, list),
+                new Song("Song3", 2, list),
+                new Song("Song4", 3, list),
+                new Song("Song5", 4, list),
+                new Composition("Composition1", 2, artist, list),
+                new Composition("Composition2", 3, artist, list),
+                 new Composition("Composition3", 4, artist, list),
             };
 
             foreach (var x in tracks)
             {
                 Console.WriteLine($"Title: {x.Title.ToString()} Artist:");
-                foreach (var y in x.GetArtists())
+                foreach (var y in x.Artists)
                 {
                     Console.WriteLine($"{y.Name.ToString()}");
                 }
