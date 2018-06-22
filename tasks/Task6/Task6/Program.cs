@@ -2,47 +2,66 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Task6.Json;
 using Task6.Models;
 using Task6.PullPush;
+using Task6.Tasks;
 
 namespace Task6
 {
     class Program
     {
-        static void Main(string[] args)
+
+        public class AsyncAwaitDemo
         {
-            /*Artist artist = new Artist("CompositionArtist");
-            List<Artist> list = new List<Artist>();
-            list.Add(new Artist("Artist1"));
-
-            var tracks = new ITrack[]
+            public async Task DoStuff()
             {
-                new Song("Song1", 2, list),
-                new Song("Song2", 2, list),
-                new Song("Song3", 2, list),
-                new Song("Song4", 3, list),
-                new Song("Song5", 4, list),
-                new Composition("Composition1", 2, artist, list),
-                new Composition("Composition2", 3, artist, list),
-                 new Composition("Composition3", 4, artist, list),
-            };
-
-            foreach (var x in tracks)
-            {
-                Console.WriteLine($"Title: {x.Title.ToString()} Artist:");
-                foreach (var y in x.Artists)
+                await Task.Run(() =>
                 {
-                    Console.WriteLine($"{y.Name.ToString()}");
-                }
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    LongRunningOperation();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                });
             }
 
-            SerializationExample.Run(tracks);
-            */
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+            private static async Task<string> LongRunningOperation()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+            {
+                int counter;
+
+                for (counter = 0; counter < 50000; counter++)
+                {
+                    Thread.Sleep(1000);
+                    Console.WriteLine(counter);
+                }
+
+                return "Counter = " + counter;
+            }
+        }
+
+        static List<T> Filter<T>(List<T> xs, Func<T, Boolean> filter)
+        {
+            var result = new List<T>();
+            foreach (var x in xs) {
+                if (filter(x)) result.Add(x);
+            }
+            return result;
+        }
+
+        static void Main(string[] args)
+        {
+            var xs = new List<int>() { 1, 5, 2, 3, 4 };
+            var ys = Filter<int>(xs, x => x % 2 == 0);
+
 
             PullExample.Run();
+            PushExample.Run();
+            PushExampleWithSubject.Run();
 
             var oneNumberPerSecond = Observable.Interval(TimeSpan.FromSeconds(1));
 
@@ -57,7 +76,33 @@ namespace Task6
                 Console.WriteLine(lowNum);
             });
 
-            Console.ReadLine();
+            
+
+            var t2 = new Thread(() =>
+                {
+                    int i = 1000;
+                    while (i < 1010)
+                    {
+                        Console.WriteLine(i++);
+                    }
+                });
+            t2.Start();
+
+
+            TasksExample.Run();
+
+            NewTaksExample.Run();
+
+            var asyncawait = new AsyncAwaitDemo();
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            asyncawait.DoStuff();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            int a = 0;
+            while (a < 10)
+            {
+                Console.WriteLine("Do something AsyncAwait");
+                a++;
+            }
 
             oneNumberPerSecond = Observable.Interval(TimeSpan.FromSeconds(1));
 
@@ -70,8 +115,6 @@ namespace Task6
             {
                 Console.WriteLine(num);
             });
-
-            Console.ReadLine();
         }
     }
 }

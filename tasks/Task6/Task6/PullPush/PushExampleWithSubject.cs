@@ -25,7 +25,7 @@ namespace Task6.PullPush
             var t = new Thread(() =>
             {
                 var i = 0;
-                while (true)
+                while (i < 100)
                 {
                     Thread.Sleep(250);
                     source.OnNext(i);

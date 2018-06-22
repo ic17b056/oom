@@ -67,6 +67,8 @@
     <Compile Include="PullPush\PullExample.cs" />
     <Compile Include="PullPush\PushExample.cs" />
     <Compile Include="PullPush\PushExampleWithSubject.cs" />
+    <Compile Include="Tasks\NewTaksExample.cs" />
+    <Compile Include="Tasks\TasksExample.cs" />
     <Compile Include="Tests\CompositionTest.cs" />
     <Compile Include="Tests\SongTest.cs" />
     <Compile Include="Tests\Test.cs" />
