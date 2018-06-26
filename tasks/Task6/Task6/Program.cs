@@ -58,6 +58,22 @@ namespace Task6
             var xs = new List<int>() { 1, 5, 2, 3, 4 };
             var ys = Filter<int>(xs, x => x % 2 == 0);
 
+            List<Artist> artists = new List<Artist>();
+            artists.Add(new Artist("Test"));
+            artists.Add(new Artist("asdf"));
+            artists.Add(new Artist("Falco"));
+            artists.Add(new Artist("newArtist"));
+            artists.Add(new Artist("Falcon"));
+            artists.Add(new Artist("Falcone"));
+
+
+            var artistsFiltered = artists.Where(o => o.Name.Contains("Falco"));
+
+            foreach (Artist art in artistsFiltered)
+            {
+                Console.WriteLine(art.Name);
+            }
+
 
             PullExample.Run();
             PushExample.Run();
